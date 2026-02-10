@@ -1,40 +1,62 @@
+"use client";
+
+import { useState } from "react";
+
 export default function Home() {
+  const [query, setQuery] = useState("");
+  const [themes, setThemes] = useState<string[]>([]);
+
+  const generateBriefing = () => {
+    // TEMP: fake AI result
+    setThemes([
+      "Geopolitical Risk",
+      "Supply Chain Resilience",
+      "Technology Acceleration",
+      "Regulatory Pressure",
+    ]);
+  };
+
   return (
     <div style={styles.page}>
       <div style={styles.paper}>
         
-        {/* Search Bar */}
-        <input
-          placeholder="Enter a topic to generate an executive briefing…"
-          style={styles.search}
-        />
+        {/* Search */}
+        <div style={{ display: "flex", gap: "12px" }}>
+          <input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Enter a topic to generate an executive briefing…"
+            style={styles.search}
+          />
+          <button onClick={generateBriefing} style={styles.button}>
+            Generate
+          </button>
+        </div>
 
         {/* Briefing Canvas */}
         <div style={styles.oval}>
           <section>
             <h3>Executive Summary</h3>
             <p>
-              A concise synthesis of the topic, framed for decision-makers.
+              AI-generated synthesis of <strong>{query || "your topic"}</strong>.
             </p>
           </section>
 
           <section>
-            <h3>Current Signals</h3>
+            <h3>Detected Themes</h3>
             <ul>
-              <li>News & Media</li>
-              <li>Policy & Regulation</li>
-              <li>Market & Industry</li>
+              {themes.map((t) => (
+                <li key={t}>{t}</li>
+              ))}
             </ul>
           </section>
 
           <section>
             <h3>Cross-Domain Implications</h3>
-            <ul>
-              <li>Technology</li>
-              <li>Health</li>
-              <li>Science</li>
-              <li>Culture / Sports</li>
-            </ul>
+            <p>
+              Each theme can now trigger a secondary search and refresh this
+              canvas automatically.
+            </p>
           </section>
         </div>
 
@@ -49,26 +71,34 @@ const styles: { [key: string]: React.CSSProperties } = {
     background: "#f3f4f6",
     display: "flex",
     justifyContent: "center",
-    alignItems: "flex-start",
     paddingTop: "40px",
   },
   paper: {
-    width: "816px",   // 8.5in
-    height: "1056px", // 11in
-    background: "#ffffff",
+    width: "816px",
+    height: "1056px",
+    background: "#fff",
     boxShadow: "0 10px 30px rgba(0,0,0,0.12)",
     padding: "40px",
     boxSizing: "border-box",
   },
   search: {
-    width: "100%",
+    flex: 1,
     padding: "14px 18px",
     fontSize: "18px",
     borderRadius: "12px",
     border: "1px solid #ccc",
-    marginBottom: "30px",
+  },
+  button: {
+    padding: "14px 20px",
+    fontSize: "16px",
+    borderRadius: "12px",
+    border: "none",
+    background: "#111",
+    color: "#fff",
+    cursor: "pointer",
   },
   oval: {
+    marginTop: "30px",
     width: "100%",
     height: "75%",
     borderRadius: "50%",
