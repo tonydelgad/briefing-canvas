@@ -6,15 +6,16 @@ export default function Home() {
   const [query, setQuery] = useState("");
   const [themes, setThemes] = useState<string[]>([]);
 
-  const generateBriefing = () => {
-    // TEMP: fake AI result
-    setThemes([
-      "Geopolitical Risk",
-      "Supply Chain Resilience",
-      "Technology Acceleration",
-      "Regulatory Pressure",
-    ]);
-  };
+const generateBriefing = async () => {
+  const res = await fetch("/api/themes", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ query }),
+  });
+
+  const data = await res.json();
+  setThemes(data.themes);
+};
 
   return (
     <div style={styles.page}>
