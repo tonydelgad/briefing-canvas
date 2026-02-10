@@ -7,6 +7,8 @@ export default function Home() {
   const [themes, setThemes] = useState<string[]>([]);
 
 const generateBriefing = async () => {
+  if (!query) return;
+
   const res = await fetch("/api/themes", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -14,7 +16,7 @@ const generateBriefing = async () => {
   });
 
   const data = await res.json();
-  setThemes(data.themes);
+  setThemes(data.themes || []);
 };
 
   return (
