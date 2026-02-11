@@ -19,53 +19,56 @@ const generateBriefing = async () => {
   setThemes(data.themes || []);
 };
 
-  return (
-    <div style={styles.page}>
-      <div style={styles.paper}>
-        
-        {/* Search */}
-        <div style={{ display: "flex", gap: "12px" }}>
-          <input
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Enter a topic to generate an executive briefing…"
-            style={styles.search}
-          />
-          <button onClick={generateBriefing} style={styles.button}>
-            Generate
-          </button>
-        </div>
+return (
+  <main className="min-h-screen flex items-start justify-center p-8">
+    <div className="bg-white shadow-xl rounded-2xl p-10 max-w-4xl w-full mt-10">
 
-        {/* Briefing Canvas */}
-        <div style={styles.oval}>
-          <section>
-            <h3>Executive Summary</h3>
-            <p>
-              AI-generated synthesis of <strong>{query || "your topic"}</strong>.
-            </p>
-          </section>
+      <h1 className="text-3xl font-semibold mb-6">
+        Executive Briefing Canvas
+      </h1>
 
-          <section>
-            <h3>Detected Themes</h3>
-            <ul>
-              {themes.map((t) => (
-                <li key={t}>{t}</li>
-              ))}
-            </ul>
-          </section>
-
-          <section>
-            <h3>Cross-Domain Implications</h3>
-            <p>
-              Each theme can now trigger a secondary search and refresh this
-              canvas automatically.
-            </p>
-          </section>
-        </div>
-
+      <div className="mb-6">
+        <input
+          type="text"
+          placeholder="Enter a topic..."
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          className="w-full border border-gray-300 rounded-lg p-3 mb-3"
+        />
+        <button
+          onClick={generateBriefing}
+          className="bg-black text-white px-5 py-2 rounded-lg"
+        >
+          Generate Briefing
+        </button>
       </div>
+
+      {query && (
+        <>
+          <h2 className="text-xl font-semibold mt-6 mb-2">
+            Executive Summary
+          </h2>
+          <p className="mb-6 text-gray-700">
+            AI-generated synthesis of {query}.
+          </p>
+
+          <h2 className="text-xl font-semibold mt-6 mb-2">
+            Detected Themes
+          </h2>
+
+          <ul className="list-disc pl-6 space-y-2">
+            {themes.map((theme, index) => (
+              <li key={index} className="text-gray-800">
+                {theme}
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+
     </div>
-  );
+  </main>
+);
 }
 
 const styles: { [key: string]: React.CSSProperties } = {
