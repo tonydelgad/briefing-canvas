@@ -4,27 +4,27 @@ export async function POST(req: Request) {
   try {
     const { query } = await req.json();
 
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`,
-        "Content-Type": "application/json",
+    const response = await fetch("https://api.openai.com/v1/responses", {
+  method: "POST",
+  headers: {
+    "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`,
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    model: "gpt-4o-mini",
+    input: [
+      {
+        role: "system",
+        content:
+          "You are an executive analyst. Return 4–6 concise strategic themes as plain bullet points. No explanations.",
       },
-      body: JSON.stringify({
-        model: "gpt-4o-mini",
-        messages: [
-          {
-            role: "system",
-            content:
-              "You are an executive analyst. Return 4–6 concise strategic themes as bullet points. No explanations.",
-          },
-          {
-            role: "user",
-            content: query,
-          },
-        ],
-      }),
-    });
+      {
+        role: "user",
+        content: query,
+      },
+    ],
+  }),
+});
 
     if (!response.ok) {
       const err = await response.text();
@@ -33,7 +33,10 @@ export async function POST(req: Request) {
     }
 
     const data = await response.json();
-    const text = data.choices?.[0]?.message?.content || "";
+    const text =
+  data.output?.[0]?.content?.[0]?.text || "";
+
+    console.log("RAW MODEL OUTPUT:", text);
 
     const themes = text
       .split("\n")
