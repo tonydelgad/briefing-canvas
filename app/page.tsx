@@ -16,7 +16,7 @@ const generateBriefing = async () => {
   });
 
   const data = await res.json();
-  setThemes(data.themes || []);
+  setThemes(data.themes);
 };
 
 return (
@@ -33,7 +33,7 @@ return (
           placeholder="Enter a topic..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="w-full border border-gray-300 rounded-lg p-3 mb-3"
+          className="w-full border border-gray-300 rounded-lg p-3 mb-3 text-gray-900 placeholder-gray-400"
         />
         <button
           onClick={generateBriefing}
