@@ -20,10 +20,10 @@ const generateBriefing = async () => {
 };
 
 return (
-  <main className="min-h-screen flex items-start justify-center p-8">
-    <div className="bg-white shadow-xl rounded-2xl p-10 max-w-4xl w-full mt-10">
+  <main className="min-h-screen flex justify-center bg-gray-100 py-10">
+    <div className="bg-white shadow-xl rounded-xl p-12 w-[850px] min-h-[1100px] mt-10">
 
-      <h1 className="text-3xl font-semibold mb-6">
+  <h1 className="text-3xl font-semibold mb-6 text-gray-900">
         Executive Briefing Canvas
       </h1>
 
@@ -45,14 +45,14 @@ return (
 
       {query && (
         <>
-          <h2 className="text-xl font-semibold mt-6 mb-2">
+          <h2 className="text-xl font-semibold mt-6 mb-2 text-gray-900">
             Executive Summary
           </h2>
           <p className="mb-6 text-gray-700">
             AI-generated synthesis of {query}.
           </p>
 
-          <h2 className="text-xl font-semibold mt-6 mb-2">
+          <h2 className="text-xl font-semibold mt-6 mb-2 text-gray-900">
             Detected Themes
           </h2>
 
